@@ -7,6 +7,5 @@ test.c
 qemu.log
 
 .vscode/
-.idea/
 .ccls-cache/
 .git/
