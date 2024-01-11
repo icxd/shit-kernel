@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 CC="g++"
 CFLAGS="-m32 -std=c++20 -ffreestanding -O2 -Wall -Wextra -Iinclude -nostdlib -fno-pie"
 
