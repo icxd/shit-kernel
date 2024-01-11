@@ -1,0 +1,12 @@
+kernel.bin
+iso/
+build/
+bin/
+a.out
+test.c
+qemu.log
+
+.vscode/
+.idea/
+.ccls-cache/
+.git/
