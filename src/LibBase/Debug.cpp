@@ -87,6 +87,11 @@ void kvprintf(const char *format, va_list ap) {
                 kputs(to_string(x, 16, true, 8).c_str());
                 break;
             }
+            case 'b': {
+                unsigned b = va_arg(ap, unsigned);
+                kputs(to_string(b, 2, false, 8).c_str());
+                break;
+            }
             case 'p': {
                 void *p = va_arg(ap, void *);
                 kputs(to_string((size_t)p, 16, false, 8).c_str());
