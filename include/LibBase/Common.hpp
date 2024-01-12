@@ -7,10 +7,10 @@
 
 [[noreturn]] inline void panic(const char *message, const char *file,
                                uint32_t line, ...) {
+    asm volatile("cli");
     va_list ap;
     va_start(ap, line);
-    asm volatile("cli");
-    kprintf("PANIC(%s:%d):", file, line, message);
+    kprintf("PANIC(%s:%d): ", file, line, message);
     kvprintf(message, ap);
     va_end(ap);
 
