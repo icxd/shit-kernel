@@ -5,6 +5,8 @@
 #include <LibC/stdio.h>
 #include <Multiboot.h>
 
+extern "C" void __cxa_pure_virtual() { PANIC("Pure virtual function called!"); }
+
 #define CHECK_FLAG(flags, bit) ((flags) & (1 << (bit)))
 
 extern "C" void kmain(uint32_t magic, uint32_t address) {

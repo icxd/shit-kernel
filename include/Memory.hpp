@@ -3,37 +3,23 @@
 #include <LibC/stddef.h>
 #include <LibC/stdint.h>
 
-extern void *end;
+#define PAGE_SIZE 4096
+#define PAGE_ALIGN(x) ((x) + PAGE_SIZE - ((x) % PAGE_SIZE))
 
-uintptr_t placement_pointer = (uintptr_t)&end;
-uintptr_t heap_end = (uintptr_t)NULL;
+extern void *kernel_end;
 
-uint32_t *frames;
-uint32_t nframes;
+void init_memory();
+void *alloc_page();
+void free_page(void *ptr);
+void *alloc_pages(size_t count);
+void free_pages(void *ptr, size_t count);
 
-#define INDEX_FROM_BIT(b) ((b) / (0x20))
-#define OFFSET_FROM_BIT(b) ((b) % (0x20))
+void *operator new(size_t size);
+void *operator new[](size_t size);
+void operator delete(void *p);
+void operator delete[](void *p);
 
-void kmalloc_startat(uintptr_t);
-uintptr_t kmalloc_real(size_t, int, uintptr_t);
-uintptr_t kmalloc(size_t);
-
-void set_frame(uintptr_t);
-void clear_frame(uintptr_t);
-uint32_t test_frame(uintptr_t);
-uint32_t first_frame();
-void alloc_frame(page_t *, int, int);
-void dma_frame(page_t *, int, int, uintptr_t);
-void free_frame(page_t *);
-
-uintptr_t memory_used();
-uintptr_t memory_total();
-
-void paging_install(uint32_t);
-void debug_print_directory();
-void switch_page_directory(page_directory_t *);
-page_t *get_page(uintptr_t, int, page_directory_t *);
-void page_fault(registers_t *);
-
-void heap_install();
-void *sbrk(intptr_t);
+void *kmalloc(size_t size);
+void *kmalloc_aligned(size_t size, size_t alignment);
+void *krealloc(void *ptr, size_t size);
+void kfree(void *ptr);
