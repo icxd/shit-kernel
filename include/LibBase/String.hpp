@@ -6,12 +6,11 @@
 
 class String {
   public:
-    constexpr String(const char *str)
+    String(const char *str)
         : m_str(const_cast<char *>(str)), m_size(strlen(str)) {}
-    constexpr String(const char *str, size_t size)
+    String(const char *str, size_t size)
         : m_str(const_cast<char *>(str)), m_size(size) {}
-    constexpr String(const String &other)
-        : m_str(other.m_str), m_size(other.m_size) {}
+    String(const String &other) : m_str(other.m_str), m_size(other.m_size) {}
     ~String() = default;
 
     String &operator=(const String &other) {
@@ -28,7 +27,7 @@ class String {
     char get(size_t index) const { return m_str[index]; }
 
     const char *c_str() const { return m_str; }
-    constexpr size_t length() const { return m_size; }
+    size_t length() const { return m_size; }
 
   private:
     char *m_str;
