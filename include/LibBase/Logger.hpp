@@ -13,40 +13,41 @@ class Logger {
         Fatal,
     };
 
-    static void log(Severity severity, const char *message, va_list args);
+    static void log(Severity severity, const char *message, va_list args,
+                    bool prefix = true);
 
-    static void debug(const char *message, ...) {
+    static void debug(const char *message, bool prefix = true, ...) {
         va_list args;
-        va_start(args, message);
-        log(Severity::Debug, message, args);
+        va_start(args, prefix);
+        log(Severity::Debug, message, args, prefix);
         va_end(args);
     }
 
-    static void info(const char *message, ...) {
+    static void info(const char *message, bool prefix = true, ...) {
         va_list args;
-        va_start(args, message);
-        log(Severity::Info, message, args);
+        va_start(args, prefix);
+        log(Severity::Info, message, args, prefix);
         va_end(args);
     }
 
-    static void warning(const char *message, ...) {
+    static void warning(const char *message, bool prefix = true, ...) {
         va_list args;
-        va_start(args, message);
-        log(Severity::Warning, message, args);
+        va_start(args, prefix);
+        log(Severity::Warning, message, args, prefix);
         va_end(args);
     }
 
-    static void error(const char *message, ...) {
+    static void error(const char *message, bool prefix = true, ...) {
         va_list args;
-        va_start(args, message);
-        log(Severity::Error, message, args);
+        va_start(args, prefix);
+        log(Severity::Error, message, args, prefix);
         va_end(args);
     }
 
-    static void fatal(const char *message, ...) {
+    static void fatal(const char *message, bool prefix = true, ...) {
         va_list args;
-        va_start(args, message);
-        log(Severity::Fatal, message, args);
+        va_start(args, prefix);
+        log(Severity::Fatal, message, args, prefix);
         va_end(args);
     }
 };
