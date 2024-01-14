@@ -4,11 +4,10 @@
 #include <LibC/stddef.h>
 #include <LibC/stdint.h>
 #include <LibC/stdio.h>
+#include <Memory.hpp>
 #include <Multiboot.h>
 
 extern "C" void __cxa_pure_virtual() { PANIC("Pure virtual function called!"); }
-
-#define CHECK_FLAG(flags, bit) ((flags) & (1 << (bit)))
 
 static const char *multiboot_flag_names[] = {
     "Memory",
@@ -73,4 +72,6 @@ extern "C" void kmain(uint32_t magic, uint32_t address) {
         Logger::debug("Lower memory = %uKB\n", (unsigned)mbi->mem_lower);
         Logger::debug("Upper memory = %uKB\n", (unsigned)mbi->mem_upper);
     }
+
+    Memory::init(mbi);
 }

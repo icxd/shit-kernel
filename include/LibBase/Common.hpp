@@ -19,6 +19,8 @@
     }
 }
 
+#define CHECK_FLAG(flags, bit) ((flags) & (1 << (bit)))
+
 #define VERIFY_NOT_REACHED() PANIC("Execution reached unreachable code!")
 #define VERIFY(expression)                                                     \
     if (!(expression)) PANIC("ASSERTION FAILED: " #expression)
