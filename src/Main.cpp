@@ -40,6 +40,12 @@ static const char *multiboot_flag_names[] = {
 };
 
 extern "C" void kmain(uint32_t magic, uint32_t address) {
+    Logger::debug("This is a debug message\n");
+    Logger::info("This is an info message\n");
+    Logger::warning("This is a warning message\n");
+    Logger::error("This is an error message\n");
+    Logger::fatal("This is a fatal message\n");
+
     Logger::info("Hello, world!\n");
     multiboot_info_t *mbi;
 
@@ -51,21 +57,10 @@ extern "C" void kmain(uint32_t magic, uint32_t address) {
 
     mbi = (multiboot_info_t *)address;
     Logger::debug("Flags = 0b%b\n", (unsigned)mbi->flags);
-    Logger::debug("  ");
-    size_t flag_count = 0;
     for (int i = 0; i < 32; i++) {
         if (CHECK_FLAG(mbi->flags, i)) {
-            flag_count++;
-            Logger::debug("%s, ", false, multiboot_flag_names[i]);
-
-            if (flag_count % 2 == 0) {
-                Logger::debug("\n", false);
-                Logger::debug("  ");
-            }
+            Logger::debug("  %s\n", multiboot_flag_names[i]);
         }
-    }
-    if (flag_count % 2 == 0) {
-        Logger::debug("\n", false);
     }
 
     if (CHECK_FLAG(mbi->flags, 0)) {
@@ -73,5 +68,9 @@ extern "C" void kmain(uint32_t magic, uint32_t address) {
         Logger::debug("Upper memory = %uKB\n", (unsigned)mbi->mem_upper);
     }
 
-    Memory::init(mbi);
+    Memory::initialize(mbi);
+
+    int *a = (int *)Memory::allocate(sizeof(int));
+    *a = 42;
+    Logger::info("a = %d\n", *a);
 }

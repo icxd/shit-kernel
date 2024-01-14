@@ -3,7 +3,7 @@
 set -e
 
 CC="g++"
-CFLAGS="-m32 -std=c++20 -ffreestanding -O2 -Wall -Wextra -Iinclude -nostdlib -fno-pie"
+CFLAGS="-m32 -std=c++20 -ffreestanding -O2 -Wall -Wextra -Iinclude -nostdlib -fno-pie -DDEBUG"
 
 USAGE="Usage: $(basename "$0") [OPTIONS]
 
