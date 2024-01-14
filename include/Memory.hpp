@@ -1,25 +1,14 @@
 #pragma once
 
+#include <LibBase/Common.hpp>
+#include <LibBase/Debug.hpp>
+#include <LibBase/Logger.hpp>
 #include <LibC/stddef.h>
 #include <LibC/stdint.h>
+#include <Multiboot.h>
 
-#define PAGE_SIZE 4096
-#define PAGE_ALIGN(x) ((x) + PAGE_SIZE - ((x) % PAGE_SIZE))
+namespace Memory {
 
-extern void *kernel_end;
+void init(multiboot_info_t *mbi);
 
-void init_memory();
-void *alloc_page();
-void free_page(void *ptr);
-void *alloc_pages(size_t count);
-void free_pages(void *ptr, size_t count);
-
-void *operator new(size_t size);
-void *operator new[](size_t size);
-void operator delete(void *p);
-void operator delete[](void *p);
-
-void *kmalloc(size_t size);
-void *kmalloc_aligned(size_t size, size_t alignment);
-void *krealloc(void *ptr, size_t size);
-void kfree(void *ptr);
+} // namespace Memory
